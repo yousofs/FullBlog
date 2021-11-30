@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -97,3 +98,17 @@ STATIC_URL = '/static/'
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login URL
+LOGIN_REDIRECT_URL = 'blog:all_posts'
+
+# Logout URL
+LOGOUT_REDIRECT_URL = 'blog:all_posts'
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'yousof.shahrabi84@gmail.com'
+EMAIL_HOST_PASSWORD = 'ajalbjphahubgbaz'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Change Password!{% endblock %}
+
+{% block content %}
+    {% if validlink %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+    {% else %}
+        <h3>Invalid Link!</h3>
+    {% endif %}
+{% endblock %}
