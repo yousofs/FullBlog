@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}All Posts{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <a href="{% url 'blog:post' post.id %}">{{ post.author }} -- {{ post.title }} | {{ post.created|date }}</a>
+        <br><br><br>
+    {% endfor %}
+{% endblock %}
