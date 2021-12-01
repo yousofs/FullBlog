@@ -1,12 +1,15 @@
-from django.shortcuts import render
+from django.views.generic import DetailView, ListView
+
 from .models import Posts
 
 
-def AllPosts(request):
-    posts = Posts.objects.all()
-    return render(request, 'blog/all_posts.html', {'posts': posts})
+class AllPostView(ListView):
+    model = Posts
+    template_name = 'blog/all_posts.html'
+    paginate_by = 5
+    ordering = ['-created']
 
 
-def PostDetail(request, post_id):
-    post = Posts.objects.get(id=post_id)
-    return render(request, 'blog/post_detail.html', {'post': post})
+class PostDetailView(DetailView):
+    model = Posts
+    template_name = 'blog/post_detail.html'

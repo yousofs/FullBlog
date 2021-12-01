@@ -3,8 +3,10 @@
 {% block title %}All Posts{% endblock %}
 
 {% block content %}
-    {% for post in posts %}
-        <a href="{% url 'blog:post' post.id %}">{{ post.author }} -- {{ post.title }} | {{ post.created|date }}</a>
-        <br><br><br>
+    {% for post in object_list %}
+        <h5><a href="{% url 'blog:post' post.id %}">{{ post.author }} - {{ post.created|date }} / {{ post.title }}</a>
+        </h5>
+    {% empty %}
+        <p>No Post yet:(</p>
     {% endfor %}
 {% endblock %}
