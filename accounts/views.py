@@ -1,8 +1,7 @@
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, TemplateView
 
 from accounts.forms import UserRegisterForm
 
@@ -35,3 +34,7 @@ class PasswordResetConfirm(auth_views.PasswordResetConfirmView):
 
 class PasswordResetComplete(auth_views.PasswordResetCompleteView):
     template_name = 'accounts/reset_complete.html'
+
+
+class ProfileView(TemplateView):
+    template_name = 'accounts/profile.html'
