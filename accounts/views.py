@@ -1,4 +1,4 @@
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views, login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
@@ -12,9 +12,14 @@ class UserLoginView(auth_views.LoginView):
 
 class SignUpView(SuccessMessageMixin, CreateView):
     template_name = 'accounts/sign_up.html'
-    success_url = reverse_lazy('accounts:login')
+    success_url = reverse_lazy('blog:all_posts')
     form_class = UserRegisterForm
     success_message = "Your profile was created successfully"
+
+    def form_valid(self, form):
+        valid = super().form_valid(form)
+        login(self.request, self.object)
+        return valid
 
 
 class UserPassReset(auth_views.PasswordResetView):

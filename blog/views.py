@@ -1,9 +1,11 @@
 from django.contrib import messages
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
+from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
-from .models import Post
+from .models import Post, Comment
+from .forms import BlogCommentForm
 
 
 class AllPostView(ListView):
@@ -13,9 +15,21 @@ class AllPostView(ListView):
     ordering = ['-created']
 
 
-class PostDetailView(DetailView):
+class PostDetailView(DetailView, FormMixin):  # Post_detail & Comment together!
     model = Post
+    form_class = BlogCommentForm
     template_name = 'blog/post_detail.html'
+
+    def get_success_url(self):
+        return reverse('blog:post_detail', kwargs={'pk': self.object.id})
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        self.object = self.get_object()
+        if form.is_valid():
+            comment = Comment(post=self.object, user=self.request.user, body=form.cleaned_data['body'])
+            comment.save()
+        return super().form_valid(form)
 
 
 class AddPostView(CreateView):
@@ -44,7 +58,7 @@ class DeletePostView(DeleteView):
     model = Post
     template_name = 'blog/delete_post.html'
     success_url = reverse_lazy('blog:all_posts')
-    success_message = "Thing was deleted successfully."
+    success_message = "Post was deleted successfully."
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)

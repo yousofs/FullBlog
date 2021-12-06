@@ -9,5 +9,22 @@
     {% endif %}
     <h2>{{ object.title }}</h2><small>{{ object.author }}</small>
     <p>{{ object.body }}</p>
-
+    <hr>
+    <h3>Comments</h3>
+    {% if post.comments.all %}
+        {% for comment in post.comments.all %}
+            <small>{{ comment.created|date }}</small> | {{ comment.user }} / {{ comment.body }}
+            <br>
+            <br>
+        {% endfor %}
+    {% else %}
+        No Comment Yet!
+    {% endif %}
+    <br>
+    <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Send!">
+    </form>
 {% endblock %}
