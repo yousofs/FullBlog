@@ -4,4 +4,11 @@
 
 {% block content %}
     <p><a href="{% url 'blog:add_post' %}">Add Post</a></p>
+    <p><a href="{% url 'accounts:edit_profile' request.user.id %}">Edit Profile!</a></p>
+    {% for object in object_list %}
+        {{ object.full_name }}<br>
+        {{ object.bio }}<br>
+        {{ object.email }}<br>
+        {{ object.phone_number }}<br>
+    {% endfor %}
 {% endblock %}

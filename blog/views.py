@@ -34,7 +34,7 @@ class PostDetailView(DetailView, FormMixin):  # Post_detail & Comment together!
 
 class AddPostView(CreateView):
     model = Post
-    fields = ('title', 'body')
+    fields = ('title', 'body', 'tag')
     template_name = 'blog/add_post.html'
     success_url = reverse_lazy('blog:all_posts')
 
@@ -48,7 +48,7 @@ class AddPostView(CreateView):
 
 class EditPostView(SuccessMessageMixin, UpdateView):
     model = Post
-    fields = ('title', 'body')
+    fields = ('title', 'body', 'tag')
     template_name = 'blog/edit_post.html'
     success_url = reverse_lazy('blog:all_posts')
     success_message = 'Your post successfully edited!'

@@ -1,9 +1,10 @@
 from django.contrib.auth import views as auth_views, login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, ListView, UpdateView
 
 from accounts.forms import UserRegisterForm
+from .models import UserProfile
 
 
 class UserLoginView(auth_views.LoginView):
@@ -41,5 +42,14 @@ class PasswordResetComplete(auth_views.PasswordResetCompleteView):
     template_name = 'accounts/reset_complete.html'
 
 
-class ProfileView(TemplateView):
+class ProfileView(ListView):
+    model = UserProfile
     template_name = 'accounts/profile.html'
+
+
+class EditProfile(SuccessMessageMixin, UpdateView):
+    model = UserProfile
+    fields = ('full_name', 'email', 'bio', 'phone_number')
+    template_name = 'accounts/edit_profile.html'
+    success_url = reverse_lazy('accounts:profile')
+    success_message = 'Your post successfully edited!'

@@ -4,3 +4,4 @@ FullBlog/__pycache__/
 .DS_Store
 accounts/.DS_Store
 accounts/templates/.DS_Store
+venv/

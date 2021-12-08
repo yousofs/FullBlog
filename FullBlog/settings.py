@@ -112,3 +112,7 @@ EMAIL_HOST_USER = 'yousof.shahrabi84@gmail.com'
 EMAIL_HOST_PASSWORD = 'ajalbjphahubgbaz'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# User Model
+
+AUTH_USER_MODEL = 'accounts.UserProfile'
