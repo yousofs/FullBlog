@@ -8,6 +8,8 @@ class Post(models.Model):
     title = models.CharField(max_length=60, db_index=True, unique=True)
     slug = models.SlugField(max_length=100, db_index=True, blank=True, null=True)
     tag = models.ForeignKey('Tag', on_delete=models.SET_NULL, null=True, blank=True)
+    img = models.ImageField(upload_to='images/', null=True, blank=True)
+    description = models.CharField(max_length=200, null=True)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 

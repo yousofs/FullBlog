@@ -3,9 +3,59 @@
 {% block title %}Edit post{% endblock %}
 
 {% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Edit!">
-    </form>
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+                <h2>Edit Post</h2>
+            </div>
+
+            <div class="row g-5 d-flex justify-content-center">
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">Detail</h4>
+                    <form class="needs-validation" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="title" class="form-label">{{ form.title.label }}</label>
+                                {{ form.title }}
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="description" class="form-label">{{ form.description.label }}</label>
+                                {{ form.description }}
+                            </div>
+
+                            <div class="col-12">
+                                <label for="tag" class="form-label">{{ form.tag.label }}</label>
+                                <div class="input-group has-validation">
+                                    {{ form.tag }}
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="image" class="form-label">Image</label>
+                                {{ form.img }}
+                            </div>
+
+                            <div class="col-12">
+                                <label for="body" class="form-label">{{ form.body.label }}</label>
+                                {{ form.body }}
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <button class="w-100 btn btn-dark btn-lg" type="submit">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">© 2021 Yousof</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </footer>
+    </div>
 {% endblock %}

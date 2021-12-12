@@ -8,6 +8,7 @@ class UserProfile(AbstractBaseUser):
     email = models.EmailField(max_length=100, unique=True)
     bio = models.TextField(null=True, blank=True)
     phone_number = models.PositiveBigIntegerField(null=True, blank=True)
+    img = models.ImageField(upload_to='images/', null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

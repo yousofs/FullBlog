@@ -94,6 +94,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 
@@ -114,5 +115,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 # User Model
-
 AUTH_USER_MODEL = 'accounts.UserProfile'
+
+# Upload Image
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
