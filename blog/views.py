@@ -18,7 +18,8 @@ from .forms import BlogCommentForm, AddPostForm, EditPostForm
 class AllPostView(ListView):
     model = Post
     template_name = "blog/all_posts.html"
-    paginate_by = 5
+    paginate_by = 2
+    paginate_orphans = 1
     ordering = ["-created"]
 
     def get_context_data(self, **kwargs):

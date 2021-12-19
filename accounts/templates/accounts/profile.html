@@ -29,11 +29,11 @@
 					</div>
 				</div>
 				<div class="col-lg-8">
-					<div class="card">
+					<div class="card h-100">
 					<form action="" method="post" enctype='multipart/form-data'>
 						{% csrf_token %}
 						<div class="card-body">
-							<div class="row mb-3">
+							<div class="row" style="margin-bottom: 2.6rem !important;">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Full Name</h6>
 								</div>
@@ -41,7 +41,7 @@
                                     {{ object.full_name }}
 								</div>
 							</div>
-							<div class="row mb-3">
+							<div class="row" style="margin-bottom: 2.6rem !important;">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Email</h6>
 								</div>
@@ -49,7 +49,7 @@
 									{{ object.email }}
 								</div>
 							</div>
-							<div class="row mb-3">
+							<div class="row" style="margin-bottom: 2.6rem !important;">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Phone</h6>
 								</div>
@@ -57,7 +57,7 @@
 									{{ object.phone_number }}
 								</div>
 							</div>
-							<div class="row mb-3">
+							<div class="row" style="margin-bottom: 2.6rem !important;">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Bio</h6>
 								</div>
@@ -77,6 +77,45 @@
 					</div>
 				</form>
 				</div>
+				{% comment %} //////////////////////////////////////////////////////////////////////////////////////// {% endcomment %}
+
+				<div class="row g-5 d-flex justify-content-center">
+					<div class="col-md-8">
+						<article class="blog-post">
+							{% for post in posts %}
+								<div>
+									<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+										<div class="col p-4 d-flex flex-column position-static">
+											<strong class="d-inline-block mb-2 text-success">{{ post.tag }}</strong>
+											<h3 class="mb-0">{{ post.title }}</h3>
+											<div class="mb-1 text-muted">{{ post.created|date }}</div>
+											<p class="mb-auto">{{ post.description }}</p>
+											<a href="{% url 'blog:post_detail' post.id %}" class="stretched-link">
+												Continue reading</a>
+										</div>
+										<div class="col-auto d-none d-lg-block">
+											{% if post.img %}
+												<img src="{{ post.img.url }}" alt="{{ post.title }}"
+													 style="width: 200px; height: 200px">
+											{% else %}
+												<img src="https://dummyimage.com/200x200/cfd3dc/6e727d.png" alt="{{ post.title }}">
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							{% empty %}
+								<p>No Post yet:(</p>
+							{% endfor %}
+						</article>
+					</div>
+		
+
+
+
+
+
+
+				{% comment %} //////////////////////////////////////////////////////////////////////////////////////// {% endcomment %}
 			</div>
 		</div>
 	</div>
