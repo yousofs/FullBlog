@@ -49,7 +49,7 @@
                         <h4>Tags</h4>
                         <ol class="list-unstyled mb-0">
                             {% for tag in tags %}
-                                <li><a href="#">{{ tag }}</a></li>
+                                <li><a href="{% url 'blog:tag_detail' tag.id %}">{{ tag }}</a></li>
                             {% endfor %}
                         </ol>
                     </div>

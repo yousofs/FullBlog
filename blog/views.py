@@ -104,11 +104,13 @@ class DeletePostView(DeleteView):
 
 
 class TagDetailView(DetailView):
-    model = Post
+    model = Tag
     template_name = "blog/tag_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Tag.objects.get(tag=self.kwargs["slug"])
+        context["tag"] = Tag.objects.get(id=self.kwargs["pk"])
+        context["tags"] = Tag.objects.all()
+        context["posts"] = Post.objects.filter(tag=self.kwargs["pk"])
         context["profile"] = UserProfile.objects.filter(id=self.request.user.id).first()
         return context

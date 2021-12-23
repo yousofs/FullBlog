@@ -15,7 +15,7 @@
                         <!-- Post meta content-->
                         <div class="text-muted fst-italic mb-2">Posted on {{ object.created|date }} by <a href="{% url 'accounts:profile' object.author.id %}">{{ object.author.full_name }}</a></div>
                         <!-- Post categories-->
-                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ object.tag }}</a>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'blog:tag_detail' object.tag.id %}">{{ object.tag }}</a>
                     </header>
                     <!-- Preview image figure-->
                     {% if object.img %}
