@@ -1,16 +1,41 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="navbar-nav">
-        <a class="nav-link active" href="{% url 'blog:all_posts' %}">Home</a>
-        {% if request.user.is_authenticated %}
-            <a class="nav-link active" href="#">Profile</a>
-            <a class="nav-link active" href="{% url 'accounts:logout' %}">Logout</a>
-            {{ request.user }}
-        {% else %}
-            <a class="nav-link active" href="{% url 'accounts:sign_up' %}">SignUp</a>
-            <a class="nav-link active" href="{% url 'accounts:login' %}">Login</a>
-        {% endif %}
-        {% if request.user.is_superuser %}
-            <a class="nav-link active" href="/admin">Admin Panel</a>
-        {% endif %}
-    </div>
-</nav>
+{% load static %}
+<div class="container">
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+                <a class="blog-header-logo text-dark" href="{% url 'blog:all_posts' %}">Logo</a>
+            </div>
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <a class="link-secondary" href="#" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
+                         viewBox="0 0 24 24"><title>Search</title>
+                        <circle cx="10.5" cy="10.5" r="7.5"></circle>
+                        <path d="M21 21l-5.2-5.2"></path>
+                    </svg>
+                </a>
+                {% if not request.user.is_authenticated %}
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'accounts:login' %}">Login</a>
+                {% else %}
+                    <div class="dropdown text-end">
+                        {% if profile.img %}
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                          <img src="{{ profile.img.url }}" alt="profile" class="rounded-circle" width="32" height="32">
+                        </a>
+                        {% else %}
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{% static 'img/profile.png' %}" alt="profile" class="rounded-circle" width="32" height="32">
+                        </a>
+                        {% endif %}
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                          <li><a class="dropdown-item" href="{% url 'accounts:profile' request.user.id %}">Profile</a></li>
+                          <li><a class="dropdown-item" href="{% url 'blog:add_post' %}">Add Post</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Sign out</a></li>
+                        </ul>
+                      </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+</div>

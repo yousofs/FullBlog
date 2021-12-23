@@ -3,7 +3,75 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-    <h2>{{ object.title }}</h2><small>{{ object.author }}</small>
-    <p>{{ object.body }}</p>
-
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Post content-->
+                <article>
+                    <!-- Post header-->
+                    <header class="mb-4">
+                        <!-- Post title-->
+                        <h1 class="fw-bolder mb-1">{{ object.title }}</h1>
+                        <!-- Post meta content-->
+                        <div class="text-muted fst-italic mb-2">Posted on {{ object.created|date }} by <a href="{% url 'accounts:profile' object.author.id %}">{{ object.author.full_name }}</a></div>
+                        <!-- Post categories-->
+                        <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'blog:tag_detail' object.tag.id %}">{{ object.tag }}</a>
+                    </header>
+                    <!-- Preview image figure-->
+                    {% if object.img %}
+                        <figure class="mb-4"><img class="img-fluid rounded" src="{{ object.img.url }}" alt="..."></figure>
+                    {% else %}
+                        <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..."></figure>
+                    {% endif %}
+                    <!-- Post content-->
+                    <section class="mb-5">
+                        {{ object.body }}
+                    </section>
+                </article>
+                <!-- Comments section-->
+                <section class="mb-5">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <!-- Comment form-->
+                            <form class="mb-4" method="post">
+                                {% csrf_token %} 
+                                {{ form }}
+                                <hr class="my-4">
+                                <input type="submit" value="Comment!" class="btn btn-dark">
+                            </form>
+                            <!-- Single comment-->
+                            {% if post.comments.all %}
+                                {% for comment in post.comments.all %}
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="{{ comment.user.img.url }}" alt="user profile image" width="50"></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">{{ comment.user.full_name }}</div>
+                                        {{ comment.body }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- Side widgets-->
+            {% if request.user.id == object.author.id %}
+            <div class="col-lg-4">
+                <!-- Categories widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Action</div>
+                    <div class="card-body">
+                        <div class="row d-flex flex-column justify-content-center align-items-center">
+                            <div class="col-sm-5">
+                                <a href="{% url 'blog:delete_post' object.id %}" style="text-decoration: none; color: #fff; display: inline-block;"><button class="btn btn-danger">Delete</button></a>
+                                <a href="{% url 'blog:edit_post' object.id %}" style="text-decoration: none;"><button class="btn btn-outline-primary">Edit</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

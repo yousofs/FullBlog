@@ -1,5 +1,6 @@
 from pathlib import Path
-
+import pymysql
+pymysql.install_as_MySQLdb()
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wf&4ko0av+)4riw92d0*uwg802rwt8)5jjw^hi^c5zw)9!-(u0'
 DEBUG = True
@@ -94,6 +95,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 
@@ -112,3 +114,10 @@ EMAIL_HOST_USER = 'yousof.shahrabi84@gmail.com'
 EMAIL_HOST_PASSWORD = 'ajalbjphahubgbaz'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# User Model
+AUTH_USER_MODEL = 'accounts.UserProfile'
+
+# Upload Image
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

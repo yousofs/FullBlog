@@ -3,6 +3,16 @@
 {% block title %}Password Changed!{% endblock %}
 
 {% block content %}
-    <p>Your password has been changed!</p>
-    <a href="{% url 'accounts:login' %}"><p>You can login now!</p></a>
+    <div class="text-center d-flex justify-content-center">
+        <div class="col-xl-4">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">Your password has been changed!</h4>
+                </div>
+            <div class="card-body">
+                <button type="submit" class="btn btn-dark btn-lg btn-block"><a href="{% url 'accounts:login' %}"  style="color:#fff; text-decoration:none;" class="fw-bold">Login Now!</a></button>
+
+            </div>
+        </div>
+    </div>
 {% endblock %}
